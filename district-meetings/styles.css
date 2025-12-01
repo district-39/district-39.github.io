@@ -1,0 +1,189 @@
+html {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.2em;
+  width: 90%;
+}
+
+@media print {
+    @page {
+        margin: .5in;
+        font-size: 14px;
+    }
+    
+    html {
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+
+body {
+    width: 100%;
+    max-width: 1100px; 
+}
+
+.comittee-report {
+    padding-top: 3px;
+    margin-bottom: 15px;
+}
+
+.committee-title {
+    border:0px;
+    border-top: 2.5px solid black;
+    padding: 8px;
+    margin:0px;
+}
+
+a {
+    color:teal;
+    background-color: antiquewhite;
+}
+
+a:hover {
+    background-color: lightgoldenrodyellow;
+}
+
+a:visited{
+    color: blackl;
+    background-color: lightblue;
+}
+
+table {
+    border-collapse: collapse;
+    max-width: 60%;
+    padding-right: 10px;
+}
+
+td {
+    padding:2px;
+}
+
+.numeric {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+  text-align: right;
+}
+
+.report-body {
+    margin-bottom: 5px;
+}
+
+table.budget {
+    border:2px solid black;
+    margin: 8px;
+}
+
+td.budget {
+    padding: 2px !important;
+    border:2px solid black;
+}
+
+tr.budget-header td {
+    background-color: lightgrey;
+
+}
+
+tr.divider {
+    border-top: 2px solid black;
+}
+tr.divider-total {
+    border-top: 4px solid black;
+}
+
+tr.budget-header td:first-child {
+    max-width: 120px !important;
+    width: 118px;
+    padding-left: 8px;
+}
+
+.budget-item-cost {
+    text-align: right;
+}
+
+.total {
+    font-weight: 900;
+}
+
+.title.treasury-header {
+    font-size:20px;
+    font-weight: 500;
+}
+
+.treasury-header:first-child {
+    height: auto;
+    margin: 0px !important;
+    padding-left: 4px;
+}
+
+.hidden {
+    display: none;
+}
+
+.checkno {
+    font-size: .8em;
+    font-style: italic;
+    font-weight:300
+}
+
+table {
+    font-size: .85em;
+    border: 2px solid black;
+}
+
+.expenses.numeric.total {
+    color: red;
+    background-color: rgba(255, 182, 193, 0.546);
+}
+
+.contribution.numeric.total{
+    color:darkgreen;
+    background-color: rgba(192, 241, 240, 0.397);
+}
+
+.treasury-header {
+    max-width: 270px;
+    font-weight: 900;
+    padding-left: 8px;
+}
+
+tr {
+  border-bottom: 1px solid black;
+  padding-left: 4px;
+}
+
+.treasury-item {
+    max-width: 270px;
+}
+
+
+.follow-up {
+    width: 100%;
+    border: 2px solid orange;
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+.followup-header-container {
+    width: 30%;
+    text-align: center;
+    display: block;
+    justify-content: center;
+    border-right: 1px dashed lightgrey
+}
+
+.followup-body {
+    width: 70%;
+}
+
+.followup-attendee-name {
+    font-weight: 600;
+}
+
+.followup-attendee-role {
+    font-weight: 300;
+    font-style: italic;
+    background-color: green;
+}
