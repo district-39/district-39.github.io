@@ -160,15 +160,17 @@ tr {
 
 .follow-up {
     width: 100%;
-    border: 2px solid orange;
     display:flex;
     flex-direction: row;
     justify-content:space-between;
+    margin-bottom: 10px;
+    background-color: rgba(206, 224, 242, 0.154);
 }
 
 .followup-header-container {
     width: 30%;
-    text-align: center;
+    text-align: right;
+    padding-right: 5%;
     display: block;
     justify-content: center;
     border-right: 1px dashed lightgrey
@@ -185,5 +187,8 @@ tr {
 .followup-attendee-role {
     font-weight: 300;
     font-style: italic;
-    background-color: green;
+}
+
+.followup-attendee-response {
+    margin-bottom: 12px;
 }
