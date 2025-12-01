@@ -8,12 +8,39 @@ html {
 @media print {
     @page {
         margin: .5in;
-        font-size: 12px;
         size: auto;
     }
     
     html {
         -webkit-print-color-adjust: exact;
+    }
+
+    body {
+        zoom: 75%;
+        margin: 0;
+        padding: 0;
+    }
+
+    table {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        page-break-before: auto;
+        page-break-after: auto;
+    }
+
+    a {
+        color:black;
+        background-color: antiquewhite;
+    }
+
+    a:hover {
+        color:black;
+        background-color: antiquewhite;
+    }
+
+    a:visited{
+        color:black;
+        background-color: antiquewhite;
     }
 }
 
