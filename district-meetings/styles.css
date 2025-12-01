@@ -8,6 +8,8 @@ html {
 @media print {
     @page {
         margin: .5in;
+        font-size: 12px;
+        size: auto;
     }
     
     html {
