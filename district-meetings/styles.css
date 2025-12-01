@@ -117,10 +117,6 @@ tr.budget-header td:first-child {
     padding-left: 4px;
 }
 
-.hidden {
-    display: none;
-}
-
 .checkno {
     font-size: .8em;
     font-style: italic;
