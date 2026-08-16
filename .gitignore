@@ -1,0 +1,22 @@
+# --- macOS junk ---
+.DS_Store
+**/.DS_Store
+
+# --- Never publish: working files from the meeting folder ---
+# Transcripts contain first names, home groups and cross-talk. They are a
+# Tradition 11 problem on a search-indexed page and belong in ~/Documents/GSB,
+# not here. An underscore prefix marks any other working file (combined scans,
+# unsplit PDFs) that is kept for the archive but not for the site.
+**/transcript_*
+**/_*.pdf
+**/_*.md
+**/gsr-notes_*.md
+
+# --- Credentials ---
+.ssh
+.ssh/*
+
+# --- Misc ---
+district-meetings/2026-02-15/logs_58214622216/*
+district-meetings/2026-02-15/logs_58214622216
+district-meetings/2026-02-15/logs_58214622216.zip
