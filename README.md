@@ -5,6 +5,8 @@ This is the github account of District 39 of alcoholics anonymous. This reposito
 ## Meetings
 
 [Meetings Index](https://district-39.github.io/district-meetings/index.html) - view all meetings
+- [2026 August](https://district-39.github.io/district-meetings/2026-08-16/index.html)
+- [2026 September](https://district-39.github.io/district-meetings/2026-09-20/index.html)
 - [2026 July](https://district-39.github.io/district-meetings/2026-07-19/index.html)
 - [2026 June](https://district-39.github.io/district-meetings/2026-06-21/index.html)
 - [2026 February](https://district-39.github.io/district-meetings/2026-02-15/index.html)
