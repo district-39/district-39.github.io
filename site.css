@@ -1,0 +1,47 @@
+/* District 39 — styles for the simple public pages (home, meetings, events,
+   documents, contacts). Existing archive pages keep using /styles.css. */
+:root{--ink:#1d2433;--muted:#556070;--line:#d8dde5;--bg:#fbfaf7;--card:#fff;--accent:#0b5d63;--accent-ink:#fff;--focus:#c2410c}
+*{box-sizing:border-box}
+html{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.55;color:var(--ink);background:var(--bg);-webkit-text-size-adjust:100%}
+body{margin:0}
+a{color:var(--accent);text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:3px}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.6rem 1rem;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+header.site{background:var(--accent);color:var(--accent-ink)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.25rem 1rem;padding-top:.7rem;padding-bottom:.7rem}
+.brand{color:#fff;font-weight:700;font-size:1.1rem;text-decoration:none}
+.brand small{display:block;font-weight:400;font-size:.8rem;opacity:.9}
+nav.main ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.15rem}
+nav.main a{display:inline-block;color:#fff;text-decoration:none;padding:.55rem .7rem;border-radius:6px;min-height:44px;line-height:1.7}
+nav.main a:hover{background:rgba(255,255,255,.15)}
+nav.main a[aria-current=page]{background:rgba(255,255,255,.22);font-weight:600}
+nav.main a:focus-visible{outline-color:#fff}
+.wrap{max-width:62rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+main{padding-top:1.25rem;padding-bottom:2rem}
+h1{font-size:1.75rem;line-height:1.2;margin:.3rem 0 .75rem}
+h2{font-size:1.3rem;margin:1.6rem 0 .5rem}
+h3{font-size:1.05rem;margin:1rem 0 .3rem}
+.lead{font-size:1.08rem;max-width:44rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem}
+.card h2,.card h3{margin-top:0}
+.help{border-left:6px solid var(--focus)}
+a[href^="tel:"]{white-space:nowrap}
+.tel{font-size:1.15rem;font-weight:700;white-space:nowrap}
+.muted{color:var(--muted)}
+.note{background:#fff7e6;border:1px solid #f0d49b;border-radius:8px;padding:.7rem .9rem}
+.src{font-size:.85rem;color:var(--muted)}
+ul.events{list-style:none;padding:0;margin:0}
+ul.events>li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem;margin:.6rem 0}
+.when{font-weight:700;color:var(--accent)}
+.ftype{font-size:.75rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 .3rem;margin-left:.2rem}
+.docset ul{padding-left:1.2rem}
+.docset li{margin:.25rem 0}
+.docset-links{margin:.2rem 0 .4rem}
+dl.contacts dt{font-weight:700;margin-top:.8rem}
+dl.contacts dd{margin:.15rem 0 0}
+footer.site{border-top:1px solid var(--line);font-size:.88rem;color:var(--muted);padding:1rem 0 2rem}
+@media (max-width:30rem){h1{font-size:1.45rem}nav.main a{padding:.5rem .55rem}}
+@media print{header.site nav,.skip{display:none}header.site{background:none;color:#000}.brand{color:#000}a{color:#000}a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em}}
