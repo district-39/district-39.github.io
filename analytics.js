@@ -16,7 +16,16 @@
     navigator.sendBeacon(ENDPOINT, JSON.stringify({ path, referrer: externalReferrer() }));
   };
 
+  const PDF_VIEWER = "/pdf.html";
+  const onViewer = location.pathname === PDF_VIEWER;
+
+  const viewedPath = () => {
+    const file = new URLSearchParams(location.search).get("file");
+    return onViewer && file ? "/" + file.replace(/^\/+/, "") : location.pathname;
+  };
+
   const recordFileOpen = (event) => {
+    if (onViewer) return;
     const link = event.target.closest("a[href]");
     if (!link) return;
     const target = new URL(link.href, location.href);
@@ -25,7 +34,7 @@
     }
   };
 
-  send(location.pathname);
+  send(viewedPath());
   document.addEventListener("click", recordFileOpen);
   document.addEventListener("auxclick", recordFileOpen);
 })();

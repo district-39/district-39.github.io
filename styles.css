@@ -1,202 +1,98 @@
 /* ============================================================================
-   District 39 — site stylesheet
+   District 39 — site stylesheet (minutes, handouts, archive pages)
    ----------------------------------------------------------------------------
-   This is the ONE stylesheet for the whole site. It lives at the repository
-   root and is served from https://district-39.github.io/styles.css
+   This is the ONE stylesheet for the archive pages. It lives at the repository
+   root and is served from /styles.css. district-meetings/styles.css is a
+   one-line @import of this file, so every page that says href="../styles.css"
+   keeps working untouched.
 
-   district-meetings/styles.css is a one-line @import of this file, so every
-   page that already says href="../styles.css" keeps working untouched. If you
-   are adding a new page, link this file directly.
+   Visual system: Anovyne (AA blue; Newsreader / Public Sans / IBM Plex Mono),
+   shared with /site.css. Mobile first. Follows the reader's light/dark setting.
 
-   Two halves below:
-     1. SCREEN  — how pages look in a browser. Unchanged from the original.
-     2. PRINT   — how pages look in Print / Save-as-PDF. Rewritten 2026-08-15
-                  so minutes can be printed and handed out at a meeting.
+     1. SCREEN  — how pages look in a browser.
+     2. PRINT   — how pages look in Print / Save-as-PDF (the 2026-08-15 rules,
+                  unchanged, plus a short reset at the end for the new look).
    ============================================================================ */
-
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&display=swap");
 
 /* ============================================================================
-   1. SCREEN
+   1. SCREEN  (base = phones; min-width queries add room)
    ============================================================================ */
-
-html {
-  font-family: "DM Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-  width: 90%;
+:root{--bg:#EAEFF5;--card:#FFFFFF;--alt:#F6F9FC;--ink:#16263C;--body:#33455C;--muted:#5A6B82;--faint:#8595A8;--line:#D4DEE9;--line-strong:#BCC9D9;--accent:#1B3A6B;--accent-strong:#15315A;--accent-soft:#DDE7F3;--link:#224A86;--link-hover:#15315A;--hi:#4F46E5;--hi-soft:#ECEAFB;--ok:#1C7148;--ok-soft:#E1EFE7;--warn:#B7791F;--warn-soft:#F6ECD3;--bad:#B3322A;--bad-soft:#F7E3E0;--ring:rgba(79,70,229,.4);--serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--shadow:0 1px 2px rgba(22,38,60,.06),0 2px 8px rgba(22,38,60,.05);--shadow-md:0 8px 24px rgba(22,38,60,.12);--gutter:1rem}
+@media (prefers-color-scheme:dark){:root{--bg:#0C1524;--card:#122036;--alt:#19283F;--ink:#EAF1F9;--body:#D4DEEC;--muted:#93A4BC;--faint:#687C96;--line:#243650;--line-strong:#2F445F;--accent:#3E6CB0;--accent-strong:#2F5A99;--accent-soft:#1B2E4A;--link:#8FB0D6;--link-hover:#B3CCE7;--hi:#8A84F2;--hi-soft:#221F45;--ok:#5FB386;--ok-soft:#14301F;--warn:#E8C56A;--warn-soft:#352B12;--bad:#E08A7C;--bad-soft:#3A1D19;--ring:rgba(138,132,242,.5);--shadow:none;--shadow-md:0 8px 24px rgba(0,0,0,.4)}}
+html{font-family:var(--sans);line-height:1.6;color:var(--body);background:var(--bg);color-scheme:light dark;-webkit-text-size-adjust:100%}
+body{max-width:50rem;margin:0 auto;padding:1rem 1rem 3rem;overflow-wrap:break-word}
+h1,h2,h3,h4{color:var(--ink)}
+h1{font-family:var(--serif);font-weight:500;font-size:1.85rem;line-height:1.12;letter-spacing:-.02em;margin:0 0 1rem;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.3rem;letter-spacing:-.01em;margin:1.75rem 0 .5rem}
+p,li{text-wrap:pretty}
+strong{color:var(--ink);font-weight:600}
+a{color:var(--link);background-color:transparent;text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--link-hover);background-color:transparent;text-decoration-thickness:2px}
+a:visited{color:var(--link);background-color:transparent}
+:focus-visible{outline:2px solid var(--hi);outline-offset:2px;border-radius:4px}
+.page-nav{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .5rem;font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);margin-bottom:1.25rem}
+.page-nav a,body>a:first-child{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+body>a:first-child{margin-bottom:.25rem}
+.page-nav a:hover,body>a:first-child:hover{text-decoration:underline}
+h2.title{font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .3rem}
+.subtitle{font-family:var(--serif);font-weight:500;font-size:1.85rem;line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:0 0 1.25rem;text-wrap:balance}
+.comittee-report{padding-top:0;margin-bottom:1.5rem}
+.committee-title{font-family:var(--serif);font-weight:500;font-size:1.25rem;letter-spacing:-.01em;line-height:1.25;color:var(--ink);border:0;border-top:1px solid var(--line);padding:1.1rem 0 0;margin:0 0 .45rem}
+.report-body{margin-bottom:5px}
+.report-body p{margin:.5rem 0}
+ul.report-ul{padding-left:1.1rem;margin:.5rem 0}
+ul.report-ul li{margin:.45rem 0}
+blockquote{margin:1rem 0;padding:.8rem 1rem;background:var(--card);border:1px solid var(--line);border-radius:10px;font-family:var(--serif);font-size:1.1rem;color:var(--ink)}
+blockquote p{margin:0}
+.visitor{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 1rem .85rem;box-shadow:var(--shadow)}
+.visitor .committee-title{border-top:0}
+table{border-collapse:separate;border-spacing:0;width:100%;max-width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:.88rem;margin:.25rem 0 1rem;box-shadow:var(--shadow);padding:0}
+td{padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+tr{border-bottom:0;padding-left:0}
+tr.divider td{background:var(--alt)}
+tr.divider-total td{border-top:2px solid var(--line-strong)}
+.numeric{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.operand{font-family:var(--mono);color:var(--muted);text-align:center;width:1.25rem;padding-left:0;padding-right:0}
+.treasury-header{max-width:270px;font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-left:.6rem}
+.title.treasury-header{font-family:var(--serif);font-size:1.1rem;font-weight:500;letter-spacing:-.01em;text-transform:none;color:var(--ink)}
+tr:first-child td{background:var(--alt)}
+.treasury-header:first-child{height:auto;margin:0 !important}
+.treasury-item{max-width:270px;color:var(--body)}
+.total{font-weight:600;color:var(--ink)}
+.ending.total{font-weight:700}
+.expenses.numeric.total{color:var(--bad);background-color:var(--bad-soft)}
+.contribution.numeric.total{color:var(--ok);background-color:var(--ok-soft)}
+.checkno{font-size:.8em;font-style:italic;font-weight:300;color:var(--muted)}
+table.budget{margin:8px 0}
+td.budget{padding:.45rem .6rem !important;border:0;border-bottom:1px solid var(--line)}
+tr.budget-header td{background:var(--alt);font-weight:600;color:var(--ink)}
+tr.budget-header td:first-child{max-width:120px !important;width:118px;padding-left:.6rem}
+.budget-item-cost{text-align:right}
+.follow-up{display:grid;grid-template-columns:minmax(0,1fr);gap:.35rem;width:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem;margin:-.5rem 0 1.5rem;box-shadow:var(--shadow)}
+.followup-header-container{width:auto;text-align:left;padding:0;border:0}
+.followup-header{margin:0;font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.followup-body{width:auto}
+.followup-attendee-name{font-weight:600;color:var(--ink)}
+.followup-attendee-role{font-family:var(--mono);font-size:.7rem;font-style:normal;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:.35rem}
+.followup-attendee-question p,.followup-attendee-response p{margin:.35rem 0}
+.followup-attendee-response{margin-bottom:12px}
+@media (min-width:36rem){
+body{padding:1.5rem 1.25rem 4rem}
+.subtitle{font-size:2.25rem;margin-bottom:1.75rem}
+.committee-title{font-size:1.35rem;padding-top:1.25rem}
+.comittee-report{margin-bottom:1.75rem}
+table{width:auto;min-width:26rem;font-size:.92rem}
+td{padding:.45rem .8rem}
+.treasury-header{padding-left:.8rem}
+.title.treasury-header{font-size:1.2rem}
+.follow-up{grid-template-columns:minmax(7rem,28%) minmax(0,1fr);gap:1.25rem;padding:1rem 1.25rem;margin-bottom:1.75rem}
+.followup-header-container{border-right:1px solid var(--line);padding-right:1rem}
+.followup-header{margin-top:.15rem}
+.visitor{padding:0 1.25rem 1rem}
+blockquote{padding:.85rem 1.15rem;font-size:1.15rem}
 }
-
-body {
-    width: 100%;
-    max-width: 1100px;
-}
-
-.comittee-report {
-    padding-top: 3px;
-    margin-bottom: 15px;
-}
-
-.committee-title {
-    border:0px;
-    border-top: 2.5px solid black;
-    padding: 8px;
-    margin:0px;
-}
-
-a {
-    color:teal;
-    background-color: antiquewhite;
-}
-
-a:hover {
-    background-color: lightgoldenrodyellow;
-}
-
-a:visited{
-    color: blackl;
-    background-color: lightblue;
-}
-
-table {
-    border-collapse: collapse;
-    max-width: 60%;
-    padding-right: 10px;
-}
-
-td {
-    padding:2px;
-}
-
-.numeric {
-  font-family: "Roboto Mono", monospace;
-  font-optical-sizing: auto;
-  font-style: normal;
-  text-align: right;
-}
-
-.report-body {
-    margin-bottom: 5px;
-}
-
-table.budget {
-    border:2px solid black;
-    margin: 8px;
-}
-
-td.budget {
-    padding: 2px !important;
-    border:2px solid black;
-}
-
-tr.budget-header td {
-    background-color: lightgrey;
-
-}
-
-tr.divider {
-    border-top: 2px solid black;
-}
-tr.divider-total {
-    border-top: 4px solid black;
-}
-
-tr.budget-header td:first-child {
-    max-width: 120px !important;
-    width: 118px;
-    padding-left: 8px;
-}
-
-.budget-item-cost {
-    text-align: right;
-}
-
-.total {
-    font-weight: 900;
-}
-
-.title.treasury-header {
-    font-size:20px;
-    font-weight: 500;
-}
-
-.treasury-header:first-child {
-    height: auto;
-    margin: 0px !important;
-    padding-left: 4px;
-}
-
-.checkno {
-    font-size: .8em;
-    font-style: italic;
-    font-weight:300
-}
-
-table {
-    font-size: .85em;
-    border: 2px solid black;
-}
-
-.expenses.numeric.total {
-    color: red;
-    background-color: rgba(255, 182, 193, 0.546);
-}
-
-.contribution.numeric.total{
-    color:darkgreen;
-    background-color: rgba(192, 241, 240, 0.397);
-}
-
-.treasury-header {
-    max-width: 270px;
-    font-weight: 900;
-    padding-left: 8px;
-}
-
-tr {
-  border-bottom: 1px solid black;
-  padding-left: 4px;
-}
-
-.treasury-item {
-    max-width: 270px;
-}
-
-
-.follow-up {
-    width: 100%;
-    display:flex;
-    flex-direction: row;
-    justify-content:space-between;
-    margin-bottom: 10px;
-    background-color: rgba(206, 224, 242, 0.154);
-}
-
-.followup-header-container {
-    width: 30%;
-    text-align: right;
-    padding-right: 5%;
-    display: block;
-    justify-content: center;
-    border-right: 1px dashed lightgrey
-}
-
-.followup-body {
-    width: 70%;
-}
-
-.followup-attendee-name {
-    font-weight: 600;
-}
-
-.followup-attendee-role {
-    font-weight: 300;
-    font-style: italic;
-}
-
-.followup-attendee-response {
-    margin-bottom: 12px;
-}
-
 
 /* ============================================================================
    2. PRINT  —  Print / Save as PDF
@@ -271,6 +167,24 @@ tr {
     .followup-attendee-response {
         page-break-inside: avoid;
         break-inside: avoid;
+    }
+
+    /* ---- Escape hatch for anything taller than a sheet of paper -----------
+       The rule above is right for ordinary list items and wrong for long ones.
+       A block that cannot fit on a page cannot honour break-inside: avoid, so
+       the browser pushes it whole to the next page and leaves the page before
+       it blank. Firefox does this far more readily than Chrome, which is why a
+       page can look fine in one and broken in the other.
+
+       Prefer restructuring: keep long quoted material (a motion with its
+       background, a submitted report) in <p> siblings rather than inside one
+       <li>. Where that is not practical, put .allow-break on the offending
+       element and let it flow across the page break. */
+    .allow-break,
+    li.allow-break,
+    tr.allow-break {
+        page-break-inside: auto;
+        break-inside: auto;
     }
 
     /* A section heading must never be the last thing on a page. */
@@ -355,4 +269,17 @@ tr {
     .comittee-report {
         margin-bottom: 10px;
     }
+}
+
+/* Print reset for the Anovyne screen look (added with the redesign). The
+   2026-08-15 print layout above stays authoritative. */
+@media print {
+    html, body { background: #fff; color: #000; }
+    h1, h2, h3, h4, strong, .total, .treasury-item { color: #000; }
+    table, blockquote, .visitor { box-shadow: none; background: transparent; border-color: #999; border-radius: 0; }
+    tr:first-child td, tr.divider td, tr.budget-header td { background: #eee; }
+    td { border-bottom-color: #ccc; }
+    .follow-up { box-shadow: none; border: 0; border-left: 2px solid #bbb; border-radius: 0; padding: 0 0 0 14px; }
+    .followup-header-container { border: 0; }
+    .committee-title { border-top-color: #000; }
 }

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Document · District 39</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/site.css">
+<noscript><style>.pdfv-pages,.pdfv-actions{display:none}</style></noscript>
+  <script defer src="/analytics.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site">
+<div class="wrap">
+<a class="brand" href="/">District 39 <small>Alcoholics Anonymous · Area 59, Eastern Pennsylvania</small></a>
+<nav class="main" aria-label="Main">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/meetings.html">Meetings</a></li>
+<li><a href="/events.html">Events</a></li>
+<li><a href="/documents.html" aria-current="page">Documents</a></li>
+<li><a href="/contacts.html">Contacts</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main id="main" class="wrap pdfv" tabindex="-1">
+<nav class="crumbs" aria-label="Breadcrumb">
+<a href="/documents.html">Documents</a>
+<span aria-hidden="true">›</span>
+<span id="crumb" aria-current="page">Document</span>
+</nav>
+<div class="pdfv-head">
+<div>
+<p class="eyebrow">PDF</p>
+<h1 id="title">Document</h1>
+<p class="pdfv-sub" id="sub" hidden></p>
+</div>
+<div class="pdfv-actions" id="actions">
+<a class="btn btn-primary" id="download" href="/documents.html" download>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>
+Download
+</a>
+<button class="btn" id="print" type="button" aria-disabled="true">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>
+Print
+</button>
+</div>
+</div>
+<p class="src pdfv-status" id="status" role="status" aria-live="polite"></p>
+<div class="pdfv-pages" id="pages">
+<figure class="pdfv-sheet"><div class="pdfv-page is-loading"></div></figure>
+</div>
+<noscript>
+<div class="card pdfv-error">
+<h2>This document can't be shown here</h2>
+<p>The document preview needs JavaScript. You can find every district document on the documents page.</p>
+<p><a href="/documents.html">Browse all documents</a></p>
+</div>
+</noscript>
+</main>
+<footer class="site">
+<div class="wrap">
+<p>Information on this site comes from District 39 minutes, the
+<a href="https://area59aa.org/">Area 59</a> district listing and
+<a href="https://www.nepaig.org/">NEPA Intergroup</a>.
+Dates and places can change; the latest minutes are the district's own record.</p>
+<p>This site is maintained by District 39 trusted servants. It is not an official site of Alcoholics Anonymous World Services, Inc. Corrections: tell the district secretary at the monthly meeting, or
+<a href="https://github.com/district-39/district-39.github.io/issues">open an issue</a>.</p>
+</div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function () {
+  var WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var params = new URLSearchParams(location.search);
+  var file = params.get('file') || '';
+  var pages = document.getElementById('pages');
+  var status = document.getElementById('status');
+  var actions = document.getElementById('actions');
+  var download = document.getElementById('download');
+  var printBtn = document.getElementById('print');
+
+  function isSitePdf(path) {
+    return /^[A-Za-z0-9][A-Za-z0-9._ \/-]*\.pdf$/i.test(path) && path.split('/').indexOf('..') === -1;
+  }
+
+  function titleFromFile(path) {
+    var name = path.split('/').pop().replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ').trim();
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
+  function meetingDate(path) {
+    var m = /^district-meetings\/(\d{4})-(\d{2})-(\d{2})\//.exec(path);
+    if (!m) return null;
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return {
+      href: '/district-meetings/' + m[1] + '-' + m[2] + '-' + m[3] + '/index.html',
+      label: d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    };
+  }
+
+  function el(tag, attrs, text) {
+    var n = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) { n.setAttribute(k, attrs[k]); });
+    if (text) n.textContent = text;
+    return n;
+  }
+
+  function showError(message, offerDirect) {
+    pages.textContent = '';
+    var card = el('div', { 'class': 'card pdfv-error' });
+    card.appendChild(el('h2', {}, 'This document can’t be shown here'));
+    card.appendChild(el('p', {}, message));
+    if (offerDirect) {
+      var direct = el('p');
+      direct.appendChild(el('a', { href: '/' + file }, 'Open the PDF directly'));
+      card.appendChild(direct);
+    } else {
+      actions.hidden = true;
+    }
+    var browse = el('p');
+    browse.appendChild(el('a', { href: '/documents.html' }, 'Browse all documents'));
+    card.appendChild(browse);
+    pages.appendChild(card);
+    status.textContent = '';
+  }
+
+  function setHeading() {
+    var title = (params.get('title') || '').trim() || titleFromFile(file);
+    document.getElementById('title').textContent = title;
+    document.getElementById('crumb').textContent = title;
+    document.title = title + ' · District 39';
+    var meeting = meetingDate(file);
+    if (meeting) {
+      var sub = document.getElementById('sub');
+      sub.append('Handed out at the ');
+      sub.appendChild(el('a', { href: meeting.href }, meeting.label + ' meeting'));
+      sub.hidden = false;
+    }
+    download.href = '/' + file;
+    download.setAttribute('download', file.split('/').pop());
+  }
+
+  function makeSheet(n, total, ratio) {
+    var fig = el('figure', { 'class': 'pdfv-sheet' });
+    var page = el('div', { 'class': 'pdfv-page is-loading', style: 'aspect-ratio:' + ratio });
+    var canvas = el('canvas', { role: 'img', 'aria-label': 'Page ' + n + ' of ' + total });
+    page.appendChild(canvas);
+    fig.appendChild(page);
+    fig.appendChild(el('figcaption', { 'class': 'pdfv-pagenum', 'aria-hidden': 'true' }, 'Page ' + n + ' of ' + total));
+    pages.appendChild(fig);
+    return { page: page, canvas: canvas };
+  }
+
+  function renderPage(pdf, n, sheet) {
+    return pdf.getPage(n).then(function (p) {
+      var base = p.getViewport({ scale: 1 });
+      var cssWidth = sheet.page.clientWidth || base.width;
+      var density = Math.max(window.devicePixelRatio || 1, 2);
+      var viewport = p.getViewport({ scale: (cssWidth / base.width) * density });
+      sheet.canvas.width = Math.floor(viewport.width);
+      sheet.canvas.height = Math.floor(viewport.height);
+      return p.render({ canvasContext: sheet.canvas.getContext('2d'), viewport: viewport }).promise;
+    }).then(function () {
+      sheet.page.classList.remove('is-loading');
+    });
+  }
+
+  function load(pdf) {
+    var total = pdf.numPages;
+    return pdf.getPage(1).then(function (first) {
+      var v = first.getViewport({ scale: 1 });
+      var ratio = v.width + ' / ' + v.height;
+      pages.textContent = '';
+      var sheets = [];
+      for (var i = 1; i <= total; i++) sheets.push(makeSheet(i, total, ratio));
+      var chain = Promise.resolve();
+      sheets.forEach(function (s, i) {
+        chain = chain.then(function () { return renderPage(pdf, i + 1, s); });
+      });
+      return chain.then(function () {
+        status.textContent = total === 1 ? '1 page loaded.' : total + ' pages loaded.';
+        printBtn.removeAttribute('aria-disabled');
+      });
+    });
+  }
+
+  printBtn.addEventListener('click', function () {
+    if (printBtn.getAttribute('aria-disabled') === 'true') return;
+    window.print();
+  });
+
+  if (!isSitePdf(file)) {
+    showError('The link didn’t include a district document. It may be out of date.', false);
+    return;
+  }
+
+  setHeading();
+
+  if (!window.pdfjsLib) {
+    showError('The preview didn’t load. You can still open the PDF directly.', true);
+    return;
+  }
+
+  status.textContent = 'Loading document…';
+  pdfjsLib.GlobalWorkerOptions.workerSrc = WORKER;
+  pdfjsLib.getDocument('/' + file).promise.then(load).catch(function (err) {
+    if (err && err.name === 'MissingPDFException') {
+      showError('We couldn’t find this document. It may have been moved or renamed.', false);
+    } else {
+      showError('The preview didn’t load. You can still open the PDF directly.', true);
+    }
+  });
+})();
+</script>
+</body>
+</html>
